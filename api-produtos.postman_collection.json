@@ -1,0 +1,99 @@
+{
+  "info": {
+    "name": "API Produtos - AWS",
+    "description": "Testes do CRUD. Antes de usar: aba Variables da coleção -> troque baseUrl (IP da EC2) e token (API_TOKEN do .env). Rode na ordem.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://SEU_IP_PUBLICO:3000" },
+    { "key": "token", "value": "COLE_AQUI_O_API_TOKEN" },
+    { "key": "id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "0 - Status da API (publica)",
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "GET",
+        "url": "{{baseUrl}}/"
+      }
+    },
+    {
+      "name": "1 - Listar SEM token (espera 401)",
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "GET",
+        "url": "{{baseUrl}}/produtos"
+      }
+    },
+    {
+      "name": "2 - Criar produto (POST)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.response.code === 201) {",
+              "  pm.collectionVariables.set('id', pm.response.json().id);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Teclado\",\n  \"preco\": 149.90,\n  \"quantidade\": 10\n}"
+        },
+        "url": "{{baseUrl}}/produtos"
+      }
+    },
+    {
+      "name": "3 - Listar todos (GET)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/produtos"
+      }
+    },
+    {
+      "name": "4 - Buscar por id (GET)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/produtos/{{id}}"
+      }
+    },
+    {
+      "name": "5 - Atualizar (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Teclado Mecanico\",\n  \"preco\": 199.90,\n  \"quantidade\": 5\n}"
+        },
+        "url": "{{baseUrl}}/produtos/{{id}}"
+      }
+    },
+    {
+      "name": "6 - Remover (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/produtos/{{id}}"
+      }
+    },
+    {
+      "name": "7 - Buscar removido (espera 404)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/produtos/{{id}}"
+      }
+    }
+  ]
+}
