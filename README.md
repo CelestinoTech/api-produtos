@@ -57,7 +57,7 @@ pm2 start server.js --name api
 
 | Nome | Contribuição |
 |---|---|
-| Integrante 1 | Infraestrutura AWS (EC2, chave SSH, Security Group) e deploy |
-| Integrante 2 | Banco de dados (`db.js`, instalação do PostgreSQL) |
-| Integrante 3 | Rotas CRUD (`produtos.js`, `server.js`) |
-| Integrante 4 | Segurança e testes (`auth.js`, `.env`, coleção Postman, vídeo) |
+| Gabriel Celestino | Infraestrutura AWS (EC2, chave SSH, Security Group) e deploy |
+| Mariana Laines | Banco de dados (`db.js`, instalação do PostgreSQL) |
+| Leonardo Graças | Rotas CRUD (`produtos.js`, `server.js`) |
+| Alex Miller | Segurança e testes (`auth.js`, `.env`, coleção Postman, vídeo) |
